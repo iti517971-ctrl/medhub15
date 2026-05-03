@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MedHub 15 - المنصة الرسمية للدفعة 15 طب بشري</title>
+<meta name="description" content="المصدر الأول لملازم ومراجع الدفعة 15 طب بشري">
+<meta name="theme-color" content="#0D47A1">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--p:#0D47A1;--p2:#1976D2;--bg:#F8FAFC;--t:#0F172A;--t2:#64748B;--c:#FFF;--b:#E2E8F0;--s:#10B981;--d:#EF4444;--w:#F59E0B;--sh:0 4px 20px rgba(13,71,161,.12)}
+[data-theme="dark"]{--bg:#0F172A;--t:#F1F5F9;--t2:#94A3B8;--c:#1E293B;--b:#334155;--sh:0 4px 20px rgba(0,0,0,.3)}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--t);line-height:1.7}
+.hidden{display:none!important}
+.header{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;padding:20px 16px;position:sticky;top:0;z-index:100;box-shadow:var(--sh)}
+.header h1{font-size:24px;font-weight:900;text-align:center;letter-spacing:-.5px}
+.header p{font-size:13px;text-align:center;opacity:.9;margin-top:4px;font-weight:600}
+.container{max-width:1200px;margin:0 auto;padding:16px 12px 90px}
+.toolbar{display:flex;gap:10px;margin:20px 0;flex-wrap:wrap}
+.btn{padding:14px 24px;border:none;border-radius:14px;font-size:15px;font-weight:800;cursor:pointer;transition:.3s;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn-primary{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;box-shadow:0 4px 14px rgba(13,71,161,.4)}
+.btn-primary:active{transform:scale(.96)}
+.btn-outline{background:var(--c);color:var(--p);border:2px solid var(--p)}
+.btn-icon{width:46px;height:46px;padding:0;border-radius:14px;background:var(--c);border:2px solid var(--b);font-size:22px}
+.input,.select{width:100%;padding:14px 18px;border:2px solid var(--b);border-radius:14px;background:var(--c);color:var(--t);font-size:15px;font-weight:600;margin:8px 0}
+.input:focus,.select:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 4px rgba(13,71,161,.1)}
+.label{display:block;margin:16px 0 8px;font-weight:800;font-size:14px;color:var(--p)}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:24px 0}
+.stat{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;padding:24px;border-radius:20px;text-align:center;box-shadow:var(--sh)}
+.stat h3{font-size:36px;font-weight:900;margin-bottom:6px}
+.stat p{font-size:13px;opacity:.95;font-weight:700}
+.card{background:var(--c);border-radius:20px;padding:20px;border:1px solid var(--b);margin:14px 0;box-shadow:var(--sh);transition:.3s}
+.card:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(13,71,161,.2)}
+.badge{display:inline-block;padding:6px 14px;border-radius:24px;font-size:12px;font-weight:800}
+.badge-high{background:#FEE2E2;color:#991B1B}
+.badge-med{background:#FEF3C7;color:#92400E}
+.badge-low{background:#D1FAE5;color:#065F46}
+.file-title{font-size:18px;font-weight:800;margin:12px 0;line-height:1.4}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.meta-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--t2);background:var(--bg);padding:8px 14px;border-radius:12px;font-weight:700}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(10px);z-index:1000;display:none;align-items:flex-end;justify-content:center}
+.modal.show{display:flex}
+.modal-content{background:var(--c);border-radius:28px 28px 0 0;width:100%;max-height:92vh;overflow:auto;padding:28px;animation:up.4s}
+@keyframes up{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:16px;border-bottom:3px solid var(--b)}
+.modal-h h3{font-size:22px;font-weight:900;color:var(--p)}
+.close{width:42px;height:42px;border-radius:50%;background:var(--bg);border:none;font-size:24px;color:var(--t2);cursor:pointer}
+.empty{text-align:center;padding:80px 20px}
+.empty-icon{font-size:72px;opacity:.15;margin-bottom:20px}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(120px);background:#1F2937;color:#fff;padding:16px 28px;border-radius:16px;z-index:9999;transition:.4s;font-weight:700;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.success{background:linear-gradient(135deg,#10B981,#059669)}
+.fab{position:fixed;bottom:80px;left:24px;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;border:none;box-shadow:0 8px 28px rgba(13,71,161,.5);cursor:pointer;font-size:32px;z-index:99}
+.footer{position:fixed;bottom:0;left:0;right:0;background:var(--c);border-top:1px solid var(--b);padding:12px;display:flex;justify-content:center;align-items:center;gap:8px;font-size:13px;color:var(--t2);font-weight:700}
+.footer a{color:var(--p);text-decoration:none;font-weight:800}
+@media(min-width:768px){.stats{grid-template-columns:repeat(4,1fr)}.files{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>MedHub 15</h1>
+<p>المنصة الرسمية للدفعة 15 - طب بشري</p>
+</div>
+
+<div class="container">
+<div class="toolbar">
+<button class="btn-icon" onclick="toggleTheme()" title="الوضع الليلي">🌙</button>
+<input type="text" id="search" class="input" placeholder="🔍 ابحث عن ملزمة، دكتور، موضوع..." style="flex:1;margin:0">
+</div>
+
+<div class="stats">
+<div class="stat"><h3 id="total">0</h3><p>📄 ملزمة</p></div>
+<div class="stat" style="background:linear-gradient(135deg,#10B981,#059669)"><h3>6</h3><p>📚 مادة</p></div>
+<div class="stat" style="background:linear-gradient(135deg,#F59E0B,#D97706)"><h3 id="hy">0</h3><p>⭐ High-Yield</p></div>
+<div class="stat" style="background:linear-gradient(135deg,#8B5CF6,#7C3AED)"><h3>2024</h3><p>🎓 الدفعة 15</p></div>
+</div>
+
+<div style="display:flex;align-items:center;justify-content:space-between;margin:32px 0 16px">
+<h2 style="font-size:20px;font-weight:900;color:var(--p)">📚 مكتبة الملازم</h2>
+</div>
+
+<div id="files" class="files"></div>
+<div id="empty" class="empty">
+<div class="empty-icon">📂</div>
+<h3 style="font-size:20px;margin-bottom:8px">لا توجد ملازم بعد</h3>
+<p style="color:var(--t2)">اضغط + لإضافة أول ملزمة للدفعة</p>
+</div>
+
+<button class="fab" onclick="showModal()">+</button>
+
+<div class="footer">
+<span>للتواصل:</span>
+<a href="https://wa.me/967771324212" target="_blank">واتساب 771324212</a>
+<span>•</span>
+<a href="https://t.me/OOZOOKS" target="_blank">تليجرام @OOZOOKS</a>
+</div>
+
+<div class="modal" id="modal">
+<div class="modal-content">
+<div class="modal-h">
+<h3>📝 إضافة ملزمة جديدة</h3>
+<button class="close" onclick="hideModal()">×</button>
+</div>
+<label class="label">اسم الملزمة *</label>
+<input type="text" id="fname" class="input" placeholder="مثال: ملزمة التشريح - الجهاز العصبي">
+<label class="label">اسم الدكتور *</label>
+<input type="text" id="fdoc" class="input" placeholder="مثال: د. أحمد محمد">
+<label class="label">المادة</label>
+<select id="fsub" class="select">
+<option>التشريح Anatomy</option>
+<option>الفسيولوجي Physiology</option>
+<option>الهستولوجي Histology</option>
+<option>البايوكمستري Biochemistry</option>
+<option>الباثولوجي Pathology</option>
+<option>الفارماكولوجي Pharmacology</option>
+</select>
+<label class="label">الأهمية</label>
+<select id="fimp" class="select">
+<option value="عالية">عالية - High-Yield ⭐</option>
+<option value="متوسطة">متوسطة</option>
+<option value="عادية">عادية</option>
+</select>
+<label class="label">عدد الصفحات</label>
+<input type="number" id="fpages" class="input" placeholder="مثال: 45">
+<label class="label">رابط الملزمة (Google Drive / Telegram)</label>
+<input type="url" id="flink" class="input" placeholder="https://...">
+<button class="btn btn-primary" onclick="addFile()" style="margin-top:20px">💾 حفظ الملزمة</button>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let files=JSON.parse(localStorage.getItem('medhub15files')||'[]');
+if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');
+function toggleTheme(){let t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t)}
+function toast(m,t='success'){let el=document.getElementById('toast');el.textContent=m;el.className='toast show '+t;setTimeout(()=>el.className='toast',3000)}
+function showModal(){document.getElementById('modal').classList.add('show')}
+function hideModal(){document.getElementById('modal').classList.remove('show')}
+function addFile(){
+let f={id:Date.now(),name:fname.value.trim(),doctor:fdoc.value.trim(),subject:fsub.value,imp:fimp.value,pages:fpages.value||'0',link:flink.value.trim(),date:new Date().toLocaleDateString('ar-EG')};
+if(!f.name||!f.doctor)return toast('املأ الحقول المطلوبة','error');
+files.unshift(f);localStorage.setItem('medhub15files',JSON.stringify(files));
+hideModal();render();toast('تمت إضافة الملزمة بنجاح ✅');
+fname.value='';fdoc.value='';fpages.value='';flink.value=''}
+function delFile(id){if(confirm('متأكد من حذف الملزمة؟')){files=files.filter(x=>x.id!==id);localStorage.setItem('medhub15files',JSON.stringify(files));render();toast('تم الحذف')}}
+function render(){
+document.getElementById('total').textContent=files.length;
+document.getElementById('hy').textContent=files.filter(f=>f.imp==='عالية').length;
+let s=document.getElementById('search').value.toLowerCase();
+let filtered=files.filter(f=>f.name.toLowerCase().includes(s)||f.doctor.toLowerCase().includes(s)||f.subject.toLowerCase().includes(s));
+let h='';if(filtered.length===0){document.getElementById('empty').classList.remove('hidden');document.getElementById('files').innerHTML=''}else{document.getElementById('empty').classList.add('hidden');
+filtered.forEach(f=>{let b=f.imp==='عالية'?'badge-high':f.imp==='متوسطة'?'badge-med':'badge-low';
+h+=`<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px">
+<span class="badge ${b}">${f.imp==='عالية'?'⭐':''} ${f.imp}</span>
+<button onclick="delFile(${f.id})" style="background:var(--d);color:#fff;border:none;padding:6px 12px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">حذف</button>
+</div>
+<h3 class="file-title">${f.name}</h3>
+<div class="meta">
+<span class="meta-item">📚 ${f.subject}</span>
+<span class="meta-item">👨‍⚕️ ${f.doctor}</span>
+<span class="meta-item">📄 ${f.pages} صفحة</span>
+<span class="meta-item">📅 ${f.date}</span>
+</div>
+${f.link?`<a href="${f.link}" target="_blank" class="btn btn-primary" style="margin-top:12px;text-decoration:none">⬇️ تحميل الملزمة</a>`:''}
+</div>`});document.getElementById('files').innerHTML=h}}
+document.getElementById('search').addEventListener('input',render);
+render();
+</script>
+</body>
+  </html>
